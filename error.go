@@ -3,9 +3,18 @@ package ex
 import "fmt"
 
 var (
-	errorsMapping map[IErrno]string
+	errorsMapping = Errors{
+		UNKNOWN_ERRNO: "unknown error",
+	}
+
 	UNKNOWN_ERRNO FatalErrno = -9999
 )
+
+func ErrorsRegister(errors map[IErrno]string) {
+	for no, err := range errors {
+		ErrorSave(no, err)
+	}
+}
 
 func ErrorsInit(errors map[IErrno]string) {
 	if errorsMapping == nil {

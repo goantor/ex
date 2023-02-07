@@ -1,3 +1,3 @@
 module github.com/goantor/ex
 
-go 1.19
+go 1.20
