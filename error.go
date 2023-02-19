@@ -24,6 +24,10 @@ func ErrorsInit(errors map[IErrno]string) {
 }
 
 func ErrorSave(no IErrno, message string) {
+	if _, ok := errorsMapping[no]; ok {
+		panic(fmt.Sprintf("error is exist [%d]:%s", no, errorsMapping[no]))
+	}
+
 	errorsMapping[no] = message
 }
 
