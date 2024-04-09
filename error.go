@@ -163,20 +163,28 @@ func getError(error interface{}) *Error {
 
 	switch error.(type) {
 	case IErrno:
+
 		errno = error.(IErrno)
 		e = &Error{
 			Code:    errno,
 			Message: errorMessage(errno),
 		}
+
+		fmt.Printf("IErrno: %v, %v\n", errno, e)
+
 		break
 	case Error:
 		ie := error.(Error)
 		e = &ie
+
+		fmt.Printf("Error: %v\n", e)
 		break
 	case *Error:
 		e = error.(*Error)
+		fmt.Printf("*Error: %v\n", e)
 		break
 	default:
+		fmt.Printf("default: %T, %v\n", error, error)
 		e = &Error{
 			Code:    UNKNOWN_ERRNO,
 			Message: "unknown error",
