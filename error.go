@@ -131,12 +131,24 @@ type Error struct {
 	Message string // 内容
 }
 
-func (e Error) Level() string {
-	return "error"
+//func (e Error) Level() string {
+//	return "error"
+//}
+//
+//func (e Error) Error() string {
+//	return e.Message
+//}
+
+func NewError(code int, message string) *Error {
+	return &Error{
+		Code:    ErrorErrno(code),
+		Message: message,
+	}
 }
 
-func (e Error) Error() string {
-	return e.Message
+func QuickThrowError(code int, message string) {
+	e := NewError(code, message)
+	throw(e)
 }
 
 func New(code IErrno, message string, data interface{}) *Error {
